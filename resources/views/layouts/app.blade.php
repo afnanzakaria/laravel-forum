@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Forum') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}" ></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('css')
 </head>
 <body>
     <div id="app">
@@ -75,12 +77,28 @@
             </div>
         </nav>
 
-        @auth
+        @if(!in_array(request()->path() , ['login','register','password/email','password/reset']))
         <main class="container py-4">
 
            <div class="row">
             <div class="col-md-4">
-            <ul class="list-group">
+
+            @auth
+            <a href="{{route('discussions.create')}}" style="width: 100%; color: #fff " class="btn btn-primary">Add Discussion</a>
+
+            @else
+            <a href="{{route('login')}}" style="width: 100%; color: #fff " class="btn btn-primary">Log In Discussion</a>
+
+            @endauth
+
+
+            <div class="card">
+                <div class="card-header">
+                Channel
+                </div>
+                <div class="card-body">
+
+                <ul class="list-group">
                     @foreach($channels as $channel)
 
                     <li class="list-group-item">
@@ -90,6 +108,10 @@
                     @endforeach
 
                     </ul>
+
+                </div>
+            </div>
+
                 </div>
 
             <div class="col-md-8">
@@ -101,14 +123,15 @@
 
 
         </main>
-
         @else
         <main class="py-4">
             @yield('content')
         </main>
+        @endif
 
-        @endauth
 
     </div>
+
+    @yield('js')
 </body>
 </html>
