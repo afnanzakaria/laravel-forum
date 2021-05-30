@@ -20,7 +20,33 @@
 
       {!! $discussion->content !!}
 
+      @if($discussion->bestReply)
+
+      <div class="card border-success my-3">
+        <div class="card-header">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <img width="40px" height="40px" style="border-radius: 50%" src="{{Gravatar::src($discussion->bestReply->owner->email)}}" alt="">
+                    <strong>
+                    {{$discussion->bestReply->owner->name}}
+                    </strong>
+                </div>
+
+                <strong>
+                    Best Reply
+                    </strong>
+
+            </div>
+        </div>
+        <div class="card-body">
+        {!! $discussion->bestReply->content !!}
+        </div>
+
+      @endif
+
+        </div>
     </div>
+
 </div>
 
 @foreach($discussion->replies()->paginate(3) as $reply)
@@ -31,6 +57,14 @@
                 <img width="40px" height="40px" style="border-radius: 50%" src="{{Gravatar::src($reply->owner->email)}}" alt="">
                 <span>{{$reply->owner->name}}</span>
 
+            </div>
+            <div>
+            @if(auth()->user()->id == $discussion->user_id)
+                <form action="{{route('discussions.best-reply' , ['discussion' => $discussion->slug , 'reply'=> $reply->id] )}}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-primary">Mark as best reply</button>
+                </form>
+            @endif
             </div>
         </div>
     </div>
