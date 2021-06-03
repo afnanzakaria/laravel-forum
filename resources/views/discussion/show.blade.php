@@ -41,10 +41,10 @@
         <div class="card-body">
         {!! $discussion->bestReply->content !!}
         </div>
-
+        </div>
       @endif
 
-        </div>
+
     </div>
 
 </div>

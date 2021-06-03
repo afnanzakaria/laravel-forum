@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateDiscussionRequest;
 use App\Models\Discussion;
 use App\Models\Reply;
+use App\Notifications\ReplyMarkAsBestReply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

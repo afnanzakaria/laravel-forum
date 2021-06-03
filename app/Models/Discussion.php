@@ -44,6 +44,8 @@ class Discussion extends Model
             'reply_id' => $reply->id
 
         ]);
+
+        $reply->owner->notify(new ReplyMarkAsBestReply($reply->discussion));
     }
 
 }

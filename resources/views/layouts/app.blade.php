@@ -39,7 +39,7 @@
 
                         <li class="nav-item">
                             <a href="{{route('user.notifications')}}" class="nav-link">
-                                <span class="bad badge-info" style="color:#fff">
+                                <span class="badge badge-info" style="color:#fff">
                                    {{ auth()->user()->unreadNotifications->count() }}
                                    Unread notifications
                                 </span>
